@@ -1,0 +1,86 @@
+
+from pyspark.sql import functions as F
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master("yarn").appName("Sparkapp").getOrCreate()
+spark.sparkContext.setLogLevel('WARN')
+# schema creation by passing list
+df = spark.read.option("header", "true").csv("hdfs:///raw/data/1MB.csv")
+df = df.select("number",F.col("number").cast("int").isNotNull().alias("flag"))
+df = df.filter(df.flag==True)
+df = df.select('number')
+df = df.withColumn("number", F.round(df["number"]).cast('integer'))
+df = df.withColumn('number', F.abs('number'))
+df = df.groupBy("number").agg(F.count("number").alias("count"))
+df = df.sort("number")
+df = df.cache()
+df.coalesce(1).write.format('com.databricks.spark.csv').mode('overwrite').option("header", "true").save("hdfs:///publish/data/1MB_Spark_Processed.csv")
+
+from pyspark.sql import functions as F
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master("yarn").appName("Sparkapp").getOrCreate()
+spark.sparkContext.setLogLevel('WARN')
+# schema creation by passing list
+df = spark.read.option("header", "true").csv("hdfs:///raw/data/10MB.csv")
+df = df.select("number",F.col("number").cast("int").isNotNull().alias("flag"))
+df = df.filter(df.flag==True)
+df = df.select('number')
+df = df.withColumn("number", F.round(df["number"]).cast('integer'))
+df = df.withColumn('number', F.abs('number'))
+df = df.groupBy("number").agg(F.count("number").alias("count"))
+df = df.sort("number")
+df = df.cache()
+df.coalesce(1).write.format('com.databricks.spark.csv').mode('overwrite').option("header", "true").save("hdfs:///publish/data/10MB_Spark_Processed.csv")
+
+
+from pyspark.sql import functions as F
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master("yarn").appName("Sparkapp").getOrCreate()
+spark.sparkContext.setLogLevel('WARN')
+# schema creation by passing list
+df = spark.read.option("header", "true").csv("hdfs:///raw/data/100MB.csv")
+df = df.select("number",F.col("number").cast("int").isNotNull().alias("flag"))
+df = df.filter(df.flag==True)
+df = df.select('number')
+df = df.withColumn("number", F.round(df["number"]).cast('integer'))
+df = df.withColumn('number', F.abs('number'))
+df = df.groupBy("number").agg(F.count("number").alias("count"))
+df = df.sort("number")
+df = df.cache()
+df.coalesce(1).write.format('com.databricks.spark.csv').mode('overwrite').option("header", "true").save("hdfs:///publish/data/100MB_Spark_Processed.csv")
+
+
+from pyspark.sql import functions as F
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master("yarn").appName("Sparkapp").getOrCreate()
+spark.sparkContext.setLogLevel('WARN')
+# schema creation by passing list
+df = spark.read.option("header", "true").csv("hdfs:///raw/data/500MB.csv")
+df = df.select("number",F.col("number").cast("int").isNotNull().alias("flag"))
+df = df.filter(df.flag==True)
+df = df.select('number')
+df = df.withColumn("number", F.round(df["number"]).cast('integer'))
+df = df.withColumn('number', F.abs('number'))
+df = df.groupBy("number").agg(F.count("number").alias("count"))
+df = df.sort("number")
+df = df.cache()
+df.coalesce(1).write.format('com.databricks.spark.csv').mode('overwrite').option("header", "true").save("hdfs:///publish/data/500MB_Spark_Processed.csv")
+
+from pyspark.sql import functions as F
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master("yarn").appName("Sparkapp").getOrCreate()
+spark.sparkContext.setLogLevel('WARN')
+# schema creation by passing list
+df = spark.read.option("header", "true").csv("hdfs:///raw/data/1GB.csv")
+df = df.select("number",F.col("number").cast("int").isNotNull().alias("flag"))
+df = df.filter(df.flag==True)
+df = df.select('number')
+df = df.withColumn("number", F.round(df["number"]).cast('integer'))
+df = df.withColumn('number', F.abs('number'))
+df = df.groupBy("number").agg(F.count("number").alias("count"))
+df = df.sort("number")
+df = df.cache()
+df.coalesce(1).write.format('com.databricks.spark.csv').mode('overwrite').option("header", "true").save("hdfs:///publish/data/1GB_Spark_Processed.csv")
+
+
+
+
